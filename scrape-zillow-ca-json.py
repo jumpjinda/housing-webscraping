@@ -103,7 +103,7 @@ for i in pages:
 for i in range(0, len(prices)):    
     price_baht = prices[i] * 33
     square_wah = sqfts[i] * 0.093 * 0.25   
-    ca_housing.append({
+    housing_ca.append({
         "price_usd": prices[i],
         "price_baht": price_baht,
         "bed": beds[i],
@@ -115,5 +115,5 @@ for i in range(0, len(prices)):
         "link": links[i]
     })
     
-with open("housing_ca.json", "w") as outfile:
-    json.dump(ca_housing, outfile, indent = 4) # indent เยื้อง
+with open("putput/housing_ca.json", "w") as outfile:
+    json.dump(housing_ca, outfile, indent = 4) # indent เยื้อง
