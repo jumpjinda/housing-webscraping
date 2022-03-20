@@ -8,7 +8,7 @@ pages = []
 for i in range(1, 21): # how many page range do you want?
     pages.append(i)
 
-ca_housing = []
+housing_ny = []
 prices = []
 beds = []
 baths = []
@@ -20,7 +20,7 @@ links = []
 for i in pages:
     PAUSE_SECONDS = 5
 
-    url = "https://www.zillow.com/ca/house,apartment_duplex,mobile,townhouse_type/" + str(i) + "_p"
+    url = "https://www.zillow.com/new-york-ny/house,apartment_duplex,mobile,townhouse_type/" + str(i) + "_p"
     print(url)
 
     req_headers = {
@@ -65,7 +65,7 @@ for i in pages:
         prices.append(price)
 
     for bed in bed_raw:
-        bed = int(bed.replace("bds", "").replace("bd", "").replace("Studio", "0")\
+        bed = int(bed.replace("bds", "").replace("bd", "").replace("Studio", "0").replace("--", "0")\
                      .replace(" ", ""))
         beds.append(bed)
         
@@ -100,10 +100,10 @@ for i in pages:
     # print("addresses" ,len(addresses), addresses)
     # print("links", len(links), links)
     
-for i in range(0, len(prices)):    
+for i in range(0, len(prices)):
     price_baht = prices[i] * 33
     square_wah = sqfts[i] * 0.093 * 0.25   
-    ca_housing.append({
+    housing_ny.append({
         "price_usd": prices[i],
         "price_baht": price_baht,
         "bed": beds[i],
@@ -115,5 +115,5 @@ for i in range(0, len(prices)):
         "link": links[i]
     })
     
-with open("ca_housing.json", "w") as outfile:
-    json.dump(ca_housing, outfile, indent = 4) # indent เยื้อง
+with open("output-json/housing_ny.json", "w") as outfile:
+    json.dump(housing_ny, outfile, indent = 4) # indent เยื้อง
