@@ -102,7 +102,7 @@ def zillow_housing_scrape(state='ca', page_range=2):
         # print("links", len(links), links)
         
     # write to csv file
-    with open('housing-webscraping-to-postgress-mongodb/output-csv/housing_' + state + '.csv', 'w', newline='') as file:
+    with open('housing-webscraping-to-postgress-mongodb-s3/output-csv/housing_' + state + '.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         for i in range(0, len(prices)):
             price_baht = prices[i] * 33
@@ -129,5 +129,5 @@ def zillow_housing_scrape(state='ca', page_range=2):
         }) 
     
     # write housing to json file  
-    with open('housing-webscraping-to-postgress-mongodb/output-json/housing_' + state + '.json', 'w') as file:
+    with open('housing-webscraping-to-postgress-mongodb-s3/output-json/housing_' + state + '.json', 'w') as file:
         json.dump(housing, file, indent = 4) # indent เยื้อง

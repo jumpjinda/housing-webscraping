@@ -4,8 +4,8 @@ def load_csv_to_postgres(database, table):
     
     
     user = "postgres"
-    password = "soulfunkjazz88"
-    host = "localhost"
+    password = "<your password>"
+    host = "<your host>" # maybe localhost
 
     # in postgres version 14, we need to use with syntax to do state
     # login to default database and create database name "housing"
@@ -43,7 +43,7 @@ def load_csv_to_postgres(database, table):
                 cur.execute(
                     "INSERT INTO " + table + " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", row)
 
-    # confirm that data has loaded into "weather" table by querying
+    # confirm that data has loaded into table by querying
     with conn.cursor() as cur:
         sql = "SELECT count(*) FROM" + table + ";"
         cur.execute(sql)
