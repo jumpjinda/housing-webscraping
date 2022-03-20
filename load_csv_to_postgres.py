@@ -37,7 +37,7 @@ def load_csv_to_postgres(database, table):
                      house_type varchar, address varchar, link varchar)")
 
     with conn.cursor() as cur:
-        with open('housing-webscraping-to-postgress-mongodb\output-csv\housing_' + table + '.csv', 'r') as file:
+        with open('housing-webscraping-to-postgress-mongodb-s3\output-csv\housing_' + table + '.csv', 'r') as file:
             reader = csv.reader(file)
             for row in reader:
                 cur.execute(
