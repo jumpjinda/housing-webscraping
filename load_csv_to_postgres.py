@@ -51,6 +51,3 @@ def load_csv_to_postgres(database, table):
         print(table, "table has", result[0], "rows")
 
     conn.close()
-
-
-# load_csv_to_postgres("housing", "ca")
