@@ -1,8 +1,9 @@
-def zillow_housing_scrape(city='ca', page_range=2):
+def zillow_housing_scrape(state='ca', page_range=2):
     from bs4 import BeautifulSoup as soup
     import requests
     import time
     import csv
+    import json
         
     # Generate page number put into pages
     pages = []
@@ -20,7 +21,7 @@ def zillow_housing_scrape(city='ca', page_range=2):
     for i in pages:
         PAUSE_SECONDS = 5
 
-        url = "https://www.zillow.com/" + city + "/house,apartment_duplex,mobile,townhouse_type/" + str(i) + "_p"
+        url = "https://www.zillow.com/" + state + "/house,apartment_duplex,mobile,townhouse_type/" + str(i) + "_p"
         print(url)
 
         req_headers = {
@@ -99,8 +100,9 @@ def zillow_housing_scrape(city='ca', page_range=2):
         # print("house_types", len(house_types), house_types)
         # print("addresses" ,len(addresses), addresses)
         # print("links", len(links), links)
-
-    with open('D:/Data_Engineer/project/housing-webscraping-to-postgress-mongodb/output-csv/housing_' + city + '.csv', 'w', newline='') as file:
+        
+    # write to csv file
+    with open('D:/Data_Engineer/project/housing-webscraping-to-postgress-mongodb/output-csv/housing_' + state + '.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         for i in range(0, len(prices)):
             price_baht = prices[i] * 33
@@ -108,3 +110,24 @@ def zillow_housing_scrape(city='ca', page_range=2):
             content = [prices[i], price_baht, beds[i], baths[i], sqfts[i], square_wah, house_types[i],\
                     addresses[i],links[i]]
             writer.writerow(content)
+    
+    # prepare list for write file      
+    housing = []
+    for i in range(0, len(prices)):    
+        price_baht = prices[i] * 33
+        square_wah = sqfts[i] * 0.093 * 0.25   
+        housing.append({
+            "price_usd": prices[i],
+            "price_baht": price_baht,
+            "bed": beds[i],
+            "bath": baths[i],
+            "sqft": sqfts[i],
+            "square_wah": square_wah,
+            "house_type": house_types[i],
+            "address": addresses[i],
+            "link": links[i]
+        }) 
+    
+    # write housing to json file  
+    with open('D:/Data_Engineer/project/housing-webscraping-to-postgress-mongodb/output-json/housing_' + state + '.json', 'w') as file:
+        json.dump(housing, file, indent = 4) # indent เยื้อง

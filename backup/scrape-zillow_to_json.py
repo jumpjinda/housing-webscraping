@@ -115,5 +115,5 @@ for i in range(0, len(prices)):
         "link": links[i]
     })
     
-with open("putput/housing_ca.json", "w") as outfile:
+with open("output/housing_ca.json", "w") as outfile:
     json.dump(housing_ca, outfile, indent = 4) # indent เยื้อง
