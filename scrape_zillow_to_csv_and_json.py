@@ -84,13 +84,13 @@ def zillow_housing_scrape(state='ca', page_range=2):
             house_types.append(house_type)
             
         for address in address_raw:
-            address = address.text
+            address = str(address.text).replace(',', '')
             addresses.append(address)
 
         for index, item in enumerate(links_raw):
             item = str(item.get("href"))
             # print(item)
-            if item != "None"and index % 2 != 0: # remove None and duplicate links
+            if item != "None" and index % 2 != 0: # remove None and duplicate links
                 links.append(item)
 
         # print("prices", len(prices), prices)
@@ -130,4 +130,4 @@ def zillow_housing_scrape(state='ca', page_range=2):
     
     # write housing to json file  
     with open('housing-webscraping-to-postgress-mongodb-s3/output-json/housing_' + state + '.json', 'w') as file:
-        json.dump(housing, file, indent = 4) # indent เยื้อง
+        json.dump(housing, file, indent=4) # indent เยื้อง
